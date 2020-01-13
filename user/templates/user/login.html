@@ -1,0 +1,13 @@
+{% extends 'forum/base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="container">
+        <h4>Login</h4>
+        <form method='POST' action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type='submit'>Login</button>
+        </form>
+        <h6>Need an acount? <a href="{% url 'register' %}">Register Here</a></h6>
+    </div>
+{% endblock %}

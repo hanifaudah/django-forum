@@ -1,0 +1,24 @@
+{% extends 'forum/base.html' %}
+{% block body %}
+    <div class="container-fluid">
+        <h1>Posts on {{object.title}}</h1>
+        <a class="btn btn-outline-secondary" href="{% url 'post-create' %}">New Post</a>
+        {% if object.post_set.all %}
+            {% for post in object.post_set.all %}
+            <div class="post__body mt-4">
+                <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
+                <hr>
+                <h1 class="post__title"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></h1>
+                <p class="post__content">{{post.content}}</p>
+                <hr>
+                <div class="post__action d-flex justify-content-end">
+                    <a href="#">Reply</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h4>No Posts</h4>
+        {% endif %}
+    </div>
+{% endblock %}
+<!-- <a class="btn btn-outline-secondary" href="{% url 'post-create' %}">Create New Post</a> -->

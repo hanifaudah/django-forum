@@ -1,0 +1,36 @@
+/* General */
+html {
+    font-family: "Public Sans";
+}
+a {
+    color:rgba(49, 49, 49,1);
+}
+
+/* Post */
+.post__body {
+    border:1px solid rgba(139, 139, 139, 1);
+    border-radius: 10px;
+    padding:1em;
+}
+.post__info {
+    font-size: 1em;
+    color:rgba(49, 49, 49,.7);
+}
+
+.post__action a {
+    font-weight: 700;
+    color:rgba(49, 49, 49,.7);
+}
+
+/* Profile */
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+/* Form */
+strong {
+    color:rgb(255, 70, 70);
+}

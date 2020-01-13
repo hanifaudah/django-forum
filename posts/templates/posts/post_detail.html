@@ -1,0 +1,19 @@
+{% extends 'forum/base.html' %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="post__body mt-4">
+            <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
+            <hr>
+            <h1 class="post__title">{{post.title}}</h1>
+            <p class="post__content">{{post.content}}</p>
+            <hr>
+            <div class="post__action d-flex justify-content-end">
+                {% if post.author == user %}
+                    <a class="btn btn-outline-info" href="{% url 'post-update' pk1=object.topic.id pk2=object.id %}">Update</a>
+                    <a class="btn btn-outline-danger" href="{% url 'post-delete' pk1=object.topic.id pk2=object.id %}">Delete</a>
+                {% endif %}
+                <a href="#">Reply</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

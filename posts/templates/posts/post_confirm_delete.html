@@ -1,0 +1,11 @@
+{% extends 'forum/base.html' %}
+{% block body %}
+    <div class="container">
+        <h4>Do You Want To Delete {{ post.title }}?</h4>
+        <form method='POST' action="">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger" type='submit'>Yes, Delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
