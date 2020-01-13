@@ -1,6 +1,7 @@
 {% extends 'forum/base.html' %}
 {% block body %}
     <div class="container-fluid">
+        <a class="btn btn-outline-info" href="{% url 'post-list' pk1=post.topic.id %}">Back</a>
         <div class="post__body mt-4">
             <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
             <hr>

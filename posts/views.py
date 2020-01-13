@@ -11,11 +11,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 
-# def home(request):
-#     context = {
-#         'posts':Post.objects.all()
-#     }
-#     return render(request, 'posts/post_list.html', context)
+
 
 class PostListView(ListView):
     model = Post
@@ -26,6 +22,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['posts'] = Post.objects.filter(topic=self.kwargs.get('pk1'))
+        context['topic'] = Topic.objects.get(pk=self.kwargs.get('pk1'))
         return context
 
 class PostDetailView(DetailView):
