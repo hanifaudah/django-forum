@@ -9,8 +9,10 @@
             <p class="post__content">{{post.content}}</p>
             <div class="post__action d-flex justify-content-end">
                 {% if post.author == user %}
-                    <a class="btn btn-outline-info" href="{% url 'post-update' pk1=object.topic.id pk2=object.id %}">Update</a>
-                    <a class="btn btn-outline-danger" href="{% url 'post-delete' pk1=object.topic.id pk2=object.id %}">Delete</a>
+                    <a class="" href="{% url 'post-update' pk1=object.topic.id pk2=object.id %}">Edit</a>
+                    <span class="mx-1">|</span>
+                    <a class="" href="{% url 'post-delete' pk1=object.topic.id pk2=object.id %}">Delete</a>
+                    <span class="mx-1">|</span>
                 {% endif %}
                 <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
             </div>

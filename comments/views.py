@@ -18,6 +18,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         form.instance.post = Post.objects.get(pk=self.kwargs.get('pk2'))
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+            # Call the base implementation first to get a context
+            context = super().get_context_data(**kwargs)
+            # Add in a QuerySet of all the books
+            post = Post.objects.get(pk=self.kwargs.get('pk2'))
+            context['pk1'] = post.topic.id
+            context['pk2'] = self.kwargs.get('pk2')
+            return context
+
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin ,UpdateView):
     model = Comment
     fields = ['content']
@@ -31,6 +40,15 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin ,UpdateView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+    
+    def get_context_data(self, **kwargs):
+            # Call the base implementation first to get a context
+            context = super().get_context_data(**kwargs)
+            # Add in a QuerySet of all the books
+            comment = self.get_object()
+            context['pk1'] = comment.id
+            context['pk2'] = self.kwargs.get('pk2')
+            return context
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment

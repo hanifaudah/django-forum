@@ -1,6 +1,17 @@
 {% extends 'forum/base.html' %}
 {% load crispy_forms_tags %}
 {% block body %}
-    <h4>{{user.username}}</h4>
-    <h4>{{user.email}}</h4>
+    <div class="container post__body d-flex">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="">
+        <div>
+            <h5>{{ user.username }}</h5>
+            <h5>{{ user.email }}</h5>
+        </div>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{u_form|crispy}}
+        {{p_form|crispy}}
+        <button type="submit">Update</button>
+    </form>
 {% endblock %}

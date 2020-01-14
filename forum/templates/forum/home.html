@@ -16,7 +16,7 @@
         {% if topics %}
             {% for post in topics %}
                 <div class="post__body mt-4">
-                    <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
+                    <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted|date:"j M Y"}}</h4>
                     <h1 class="post__title"><a href="{% url 'post-list' pk1=post.pk %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
                     {% if post.author == user %}
