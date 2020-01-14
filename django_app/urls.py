@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('forum.urls')),
+    path('postscomments/<int:pk2>/', include('comments.urls')),
     path('register/', user_view.register, name='register'),
     path ('login/', auth_view.LoginView.as_view(template_name='user/login.html'), name='login'),
     path ('logout/', auth_view.LogoutView.as_view(template_name='user/logout.html'), name='logout'),

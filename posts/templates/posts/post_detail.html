@@ -1,20 +1,38 @@
 {% extends 'forum/base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
     <div class="container-fluid">
         <a class="btn btn-outline-info" href="{% url 'post-list' pk1=post.topic.id %}">Back</a>
         <div class="post__body mt-4">
             <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
-            <hr>
             <h1 class="post__title">{{post.title}}</h1>
             <p class="post__content">{{post.content}}</p>
-            <hr>
             <div class="post__action d-flex justify-content-end">
                 {% if post.author == user %}
                     <a class="btn btn-outline-info" href="{% url 'post-update' pk1=object.topic.id pk2=object.id %}">Update</a>
                     <a class="btn btn-outline-danger" href="{% url 'post-delete' pk1=object.topic.id pk2=object.id %}">Delete</a>
                 {% endif %}
-                <a href="#">Reply</a>
+                <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
             </div>
+        </div>
+        <hr class="my-4">
+        <div class="d-flex flex-column align-items-start mt-3" >
+            <h5>{{ post.comment_set.all|length }} Comments</h5>
+            {% for comment in post.comment_set.all %}
+                <div class="container comment__body mt-3">
+                    <h4 class="post__info">{{comment.author}} on {{comment.date_posted|date:"j M Y"}}</h4>
+                    <p class="post__content">{{comment.content}}</p>
+                    <div class="post__action">
+                        <!-- Comment Reply Button Here -->
+                        {% if comment.author == user %}
+                            <a class="" href="{% url 'comment-update' pk2=comment.post.id pk3=comment.id %}">Edit</a>
+                            <span>|</span>
+                            <a class="" href="{% url 'comment-delete' pk2=comment.post.id pk3=comment.id %}">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
+<a href="{% url 'comment-create' pk2=post.id %}">Reply</a>

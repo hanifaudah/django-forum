@@ -3,17 +3,22 @@
     <div class="container-fluid">
         <a class="btn btn-outline-info" href="{% url 'forum-home' %}">Back</a>
         <h1>Posts on {{topic.title}}</h1>
-        <a class="btn btn-outline-secondary" href="{% url 'post-create' pk1=topic.id %}">New Post</a>
+        <div class="d-flex flex-row justify-content-between">
+            <a class="btn btn-outline-secondary" href="{% url 'post-create' pk1=topic.pk %}"><i class="fas fa-plus mr-2"></i>New Post</a>
+            <form method="GET" class="search__form form-inline">
+                {% csrf_token %}
+                <input class="search__bar" type="search" placeholder="Search Posts..." aria-label="Search" name="keyword">
+                <button class="search__btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
             {% if posts %}
                 {% for post in posts %}
                     <div class="post__body mt-4">
                         <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
-                        <hr>
                         <h1 class="post__title"><a href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">{{post.title}}</a></h1>
                         <p class="post__content">{{post.content}}</p>
-                        <hr>
                         <div class="post__action d-flex justify-content-end">
-                            <a href="#">Reply</a>
+                            <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
                         </div>
                     </div>
                 {% endfor %}

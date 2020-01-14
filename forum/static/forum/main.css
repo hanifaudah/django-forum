@@ -1,17 +1,53 @@
 /* General */
-html {
+html,body {
     font-family: "Public Sans";
+    background:rgb(253,253,253);
 }
 a {
     color:rgba(49, 49, 49,1);
 }
 
+/* Nav */
+.navbar, .navbar a {
+    background:rgb(0, 104, 223);
+    color:white;
+}
+
+/* Search-bar */
+.search__bar {
+    border-top-right-radius:0px;
+    border-bottom-right-radius:0px;
+    min-width:40vw;
+    background:none;
+    border:1px solid rgb(197, 197, 197);
+    border-radius: 3px;
+    padding:6px 12px;
+    outline:none;
+}
+
+.search__btn {
+    background:rgb(243, 243, 243);
+    border:1px solid rgb(197, 197, 197);
+    border-radius: 3px;
+    border-top-left-radius:0px;
+    border-bottom-left-radius:0px;
+    border-left:none;
+    padding:6px 12px;
+    outline:none;
+}
+
 /* Post */
 .post__body {
-    border:1px solid rgba(139, 139, 139, 1);
-    border-radius: 10px;
+    border:1px solid rgb(197, 197, 197);
+    border-radius: 5px;
     padding:1em;
+    background:rgb(255, 255, 255);
 }
+
+.post__title {
+    font-size: 2em;
+}
+
 .post__info {
     font-size: 1em;
     color:rgba(49, 49, 49,.7);

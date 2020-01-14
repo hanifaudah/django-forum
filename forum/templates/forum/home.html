@@ -3,24 +3,26 @@
     <div class="container-fluid">
         <div>
             <h1>Topics</h1>
-            <a class="btn btn-outline-secondary" href="{% url 'topic-create' %}">Create New Topic</a>
-            <form method="GET" class="form-inline mt-3">
-                {% csrf_token %}
-                <input class="form-control mr-sm-2" type="search" placeholder="Search Topics..." aria-label="Search" name="keyword">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <div class="d-flex flex-row justify-content-between">
+                <a class="btn btn-outline-secondary mr-3" href="{% url 'topic-create' %}"><i class="fas fa-plus mr-2"></i>New Topic</a>
+                <form method="GET" class="search__form form-inline">
+                    {% csrf_token %}
+                    <input class="search__bar" type="search" placeholder="Search Topics..." aria-label="Search" name="keyword">
+                    <button class="search__btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
         </div>
         {{kw}}
         {% if topics %}
             {% for post in topics %}
                 <div class="post__body mt-4">
                     <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
-                    <hr>
                     <h1 class="post__title"><a href="{% url 'post-list' pk1=post.pk %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
                     {% if post.author == user %}
-                        <a class="btn btn-outline-info" href="{% url 'topic-update' pk1=post.id %}">Update</a>
-                        <a class="btn btn-outline-danger" href="{% url 'topic-delete' pk1=post.id %}">Delete</a>
+                        <a class="" href="{% url 'topic-update' pk1=post.id %}">Edit</a>
+                        <span>|</span>
+                        <a class="" href="{% url 'topic-delete' pk1=post.id %}">Delete</a>
                     {% endif %}
                 </div>
             {% endfor %}
