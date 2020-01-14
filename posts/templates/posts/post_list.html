@@ -11,19 +11,23 @@
                 <button class="search__btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
-            {% if posts %}
-                {% for post in posts %}
-                    <div class="post__body mt-4">
-                        <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
-                        <h1 class="post__title"><a href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">{{post.title}}</a></h1>
-                        <p class="post__content">{{post.content}}</p>
-                        <div class="post__action d-flex justify-content-end">
-                            <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
-                        </div>
+        <hr>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post__body mt-4">
+                    <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted}}</h4>
+                    <h1 class="post__title"><a href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">{{post.title}}</a></h1>
+                    <p class="post__content">{{post.content}}</p>
+                    <div class="post__action d-flex justify-content-end">
+                        <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
                     </div>
-                {% endfor %}
-            {% else %}
-            <h5>No Posts Available</h5>
-            {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+                <i class="fas fa-chalkboard-teacher info__icon"></i>
+                <h5 class="info__text mt-5">No Posts Available</h5>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -19,10 +19,14 @@
         </div>
         <hr class="my-4">
         <div class="d-flex flex-column align-items-start mt-3" >
-            <h5>{{ post.comment_set.all|length }} Comments</h5>
+            {% if post.comment_set.all|length == 1%}
+                <h5>{{ post.comment_set.all|length }} Comment</h5>
+            {% else %}
+                <h5>{{ post.comment_set.all|length }} Comments</h5>
+            {% endif %}
             {% for comment in post.comment_set.all %}
                 <div class="container comment__body mt-3">
-                    <h4 class="post__info">{{comment.author}} on {{comment.date_posted|date:"j M Y"}}</h4>
+                    <h4 class="post__info"><span class="comment__author mr-1">{{comment.author}}</span> {{comment.date_posted|timesince}} ago</h4>
                     <p class="post__content">{{comment.content}}</p>
                     <div class="post__action">
                         <!-- Comment Reply Button Here -->

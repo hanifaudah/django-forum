@@ -7,6 +7,15 @@ a {
     color:rgba(49, 49, 49,1);
 }
 
+.info__text {
+    font-size:1.5em;
+    color:rgb(190, 190, 190);
+}
+
+.info__icon {
+    font-size:10em;
+    color:rgb(190, 190, 190);
+}
 /* Nav */
 .navbar, .navbar a {
     background:rgb(0, 104, 223);
@@ -53,6 +62,12 @@ a {
     color:rgba(49, 49, 49,.7);
 }
 
+.post__info span {
+    font-size:1em;
+    font-weight: 700;
+    color:black;
+}
+
 .post__action a {
     font-weight: 700;
     color:rgba(49, 49, 49,.7);
@@ -62,17 +77,9 @@ a {
 .account-img {
     height: 125px;
     width: 125px;
-    margin-right:1em;
 }
 
 /* Form */
 strong {
     color:rgb(255, 70, 70);
-}
-
-.form input, .form textarea{
-    border:1px solid rgb(197, 197, 197);
-    border-radius: 5px;
-    outline:none;
-    width:50vw;
 }
