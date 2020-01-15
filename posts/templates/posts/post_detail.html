@@ -1,5 +1,6 @@
 {% extends 'forum/base.html' %}
 {% load crispy_forms_tags %}
+{% load mptt_tags %}
 {% block body %}
     <div class="container-fluid">
         <a class="btn btn-outline-info" href="{% url 'post-list' pk1=post.topic.id %}">Back</a>
@@ -14,7 +15,7 @@
                     <a class="" href="{% url 'post-delete' pk1=object.topic.id pk2=object.id %}">Delete</a>
                     <span class="mx-1">|</span>
                 {% endif %}
-                <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
+                <a href="{% url 'comment-create' pk2=post.id type='Post' pk_parent=post.id %}">Reply</a>
             </div>
         </div>
         <hr class="my-4">
@@ -24,21 +25,33 @@
             {% else %}
                 <h5>{{ post.comment_set.all|length }} Comments</h5>
             {% endif %}
-            {% for comment in post.comment_set.all %}
-                <div class="container comment__body mt-3">
-                    <h4 class="post__info"><span class="comment__author mr-1">{{comment.author}}</span> {{comment.date_posted|timesince}} ago</h4>
-                    <p class="post__content">{{comment.content}}</p>
-                    <div class="post__action">
-                        <!-- Comment Reply Button Here -->
-                        {% if comment.author == user %}
-                            <a class="" href="{% url 'comment-update' pk2=comment.post.id pk3=comment.id %}">Edit</a>
-                            <span>|</span>
-                            <a class="" href="{% url 'comment-delete' pk2=comment.post.id pk3=comment.id %}">Delete</a>
+            <ul>
+                {% recursetree post.comment_set.all %}
+                    <li>
+                        <div class="container comment__body mt-3 d-flex">
+                            <img class="rounded-circle comment-img mr-3" src="{{ node.author.profile.image.url }}" alt="">
+                            <div>
+                                <h4 class="post__info"><span class="comment__author mr-1">{{node.author}}</span> {{node.date_posted|timesince}} ago</h4>
+                                <p class="post__content">{{node.content}}</p>
+                                <div class="post__action">
+                                    {% if node.author == user %}
+                                        <a class="" href="{% url 'comment-update' pk2=node.post.id pk3=node.id %}">Edit</a>
+                                        <span>|</span>
+                                        <a class="" href="{% url 'comment-delete' pk2=node.post.id pk3=node.id %}">Delete</a>
+                                    {% endif %}
+                                    <span>|</span>
+                                    <a href="{% url 'comment-create' pk2=node.post.id type='Comment' pk_parent=node.id %}">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                {{ children }}
+                            </ul>
                         {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
+                    </li>
+                {% endrecursetree %}
+            </ul>
         </div>
     </div>
 {% endblock %}
-<a href="{% url 'comment-create' pk2=post.id %}">Reply</a>

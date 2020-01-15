@@ -73,10 +73,19 @@ a {
     color:rgba(49, 49, 49,.7);
 }
 
+ul, li {
+    list-style-type: none;
+}
+
 /* Profile */
 .account-img {
     height: 125px;
     width: 125px;
+}
+
+.comment-img {
+    height:40px;
+    width:40px;
 }
 
 /* Form */

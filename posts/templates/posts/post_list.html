@@ -19,7 +19,7 @@
                     <h1 class="post__title"><a href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
                     <div class="post__action d-flex justify-content-end">
-                        <a href="{% url 'comment-create' pk2=post.id %}">Reply</a>
+                        <a href="{% url 'comment-create' pk2=post.id type='Post' pk_parent=post.id %}">Reply</a>
                     </div>
                 </div>
             {% endfor %}

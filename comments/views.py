@@ -16,12 +16,17 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user 
         form.instance.post = Post.objects.get(pk=self.kwargs.get('pk2'))
+        type = self.kwargs.get('type')
+        if type == 'Post':
+            form.instance.parent = None
+        elif type == 'Comment':
+            form.instance.parent = Comment.objects.get(pk=self.kwargs.get('pk_parent'))
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-            # Call the base implementation first to get a context
             context = super().get_context_data(**kwargs)
-            # Add in a QuerySet of all the books
+
+            #This works
             post = Post.objects.get(pk=self.kwargs.get('pk2'))
             context['pk1'] = post.topic.id
             context['pk2'] = self.kwargs.get('pk2')
