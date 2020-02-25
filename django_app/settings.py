@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'comments.apps.CommentsConfig',
     'posts.apps.PostsConfig',
     'crispy_forms',
+    'forum.apps.ForumConfig',
     'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
