@@ -125,8 +125,8 @@ USE_TZ = True
 
 # Deploy vars
 ALLOWED_HOSTS = ['https://problematika.herokuapp.com/']
-SECRET_KEY = os.environment('SECRET_KEY')
-DEBUG = (os.environment.get('DEBUG_VALUE')=='True')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
 django_heroku.settings(locals())
 
 
