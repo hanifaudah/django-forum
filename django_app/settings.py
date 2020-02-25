@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,7 +36,6 @@ INSTALLED_APPS = [
     'comments.apps.CommentsConfig',
     'posts.apps.PostsConfig',
     'crispy_forms',
-    'forum.apps.ForumConfig',
     'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,11 +123,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# Deploy vars
+ALLOWED_HOSTS = ['https://problematika.herokuapp.com/']
+SECRET_KEY = os.environment('SECRET_KEY')
+DEBUG = (os.environment.get('DEBUG_VALUE')=='True')
+django_heroku.settings(locals())
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'forum-home'
+LOGIN_REDIRECT_URL = 'post-list'
 LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
