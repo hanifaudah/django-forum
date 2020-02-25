@@ -1,1 +1,1 @@
-web: gunicorn problematika.wsgi
+web: gunicorn django_app.wsgi
