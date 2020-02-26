@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECRET_KEY = 'n(5x-2$3fobyxtmox6+q*widcim&(hv^+4*%5(__wkd3f=6rbw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -127,8 +127,9 @@ USE_TZ = True
 # Deploy vars
 ALLOWED_HOSTS = ['https://problematika.herokuapp.com/']
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
-django_heroku.settings(locals())
+# DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
+DEBUG = 'True'
+
 
 
 STATIC_URL = '/static/'
@@ -136,8 +137,10 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'post-list'
+LOGIN_REDIRECT_URL = 'forum-home'
 LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+django_heroku.settings(locals())

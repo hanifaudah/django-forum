@@ -2,12 +2,12 @@
 {% block body %}
     <div class="container-fluid">
         <a class="btn btn-outline-info" href="{% url 'forum-home' %}">Back</a>
-        <h1>Posts on {{topic.title}}</h1>
+        <h1>Solutions on "{{topic.title}}"</h1>
         <div class="d-flex flex-row justify-content-between">
-            <a class="btn btn-outline-secondary" href="{% url 'post-create' pk1=topic.pk %}"><i class="fas fa-plus mr-2"></i>New Post</a>
+            <a class="btn btn-outline-secondary" href="{% url 'post-create' pk1=topic.pk %}"><i class="fas fa-plus mr-2"></i>Add a Solution</a>
             <form method="GET" class="search__form form-inline">
                 {% csrf_token %}
-                <input class="search__bar" type="search" placeholder="Search Posts..." aria-label="Search" name="keyword">
+                <input class="search__bar" type="search" placeholder="Search Solutions..." aria-label="Search" name="keyword">
                 <button class="search__btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -19,6 +19,11 @@
                     <h1 class="post__title"><a href="{% url 'post-detail' pk1=post.topic.id pk2=post.id %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
                     <div class="post__action d-flex justify-content-end">
+                        {% if post.author == user %}
+                            <a class="" href="{% url 'post-update' pk1=post.topic.id pk2=post.id %}">Edit</a>
+                            <span>|</span>
+                            <a class="" href="{% url 'post-delete' pk1=post.topic.id pk2=post.id %}">Delete</a>
+                        {% endif %}
                         <a href="{% url 'comment-create' pk2=post.id type='Post' pk_parent=post.id %}">Reply</a>
                     </div>
                 </div>
