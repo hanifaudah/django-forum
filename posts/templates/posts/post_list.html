@@ -23,6 +23,7 @@
                             <a class="" href="{% url 'post-update' pk1=post.topic.id pk2=post.id %}">Edit</a>
                             <span>|</span>
                             <a class="" href="{% url 'post-delete' pk1=post.topic.id pk2=post.id %}">Delete</a>
+                            <span>|</span>
                         {% endif %}
                         <a href="{% url 'comment-create' pk2=post.id type='Post' pk_parent=post.id %}">Reply</a>
                     </div>

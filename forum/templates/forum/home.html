@@ -26,7 +26,7 @@
                     <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted|date:"j M Y"}}</h4>
                     <h1 class="post__title"><a href="{% url 'post-list' pk1=post.pk %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
-                    <!-- <a class="btn btn-outline-secondary mb-2" href="{% url 'post-create' pk1=post.id %}"><i class="fas fa-plus mr-2"></i>Add a Solution</a></br> -->
+                    <a class="btn btn-outline-secondary mb-2" href="{% url 'post-create' pk1=post.id %}"><i class="fas fa-plus mr-2"></i>Add a Solution</a></br>
                     {% if post.author == user %}
                         <a class="" href="{% url 'topic-update' pk1=post.id %}">Edit</a>
                         <span>|</span>
