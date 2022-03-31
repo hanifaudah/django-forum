@@ -77,6 +77,16 @@ ul, li {
     list-style-type: none;
 }
 
+.voteBtn {
+    border:none;
+    outline:none;
+    background:none;
+}
+
+.voted {
+    color:rgb(0, 104, 223);
+}
+
 /* Profile */
 .account-img {
     height: 125px;

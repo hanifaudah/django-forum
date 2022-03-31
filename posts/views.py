@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from posts.models import Post
 from forum.models import Topic
+from user.models import LikedPost
 from django.views.generic import (
     ListView,
     DetailView,
@@ -10,6 +11,8 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
+from django.db.models import F
+
 
 
 def home(request, pk1):
@@ -19,6 +22,21 @@ def home(request, pk1):
     ordering = ['-date_posted']
     if request.method == 'GET' and len(request.GET) != 0:
         context['posts'] = Post.objects.filter(topic=pk1).filter(title__icontains=request.GET['keyword'])
+    elif request.POST.get('postBtn'):
+        user = request.user
+        post = Post.objects.get(id=request.POST.get('postBtn'))
+        if(not user.likedpost_set.filter(post=post).exists()):
+            likedObj = LikedPost(liker=user,post=post)
+            likedObj.save()
+            post.points = F('points') + 1
+            post.save(update_fields=["points"])
+        elif(user.likedtopic_set.filter(post=post).exists()):
+            user.likedpost_set.get(post=post).delete()
+            post.points = F('points') - 1
+            post.save(update_fields=["points"])
+        else:
+            pass
+        context['topics'] = Topic.objects.all()
     else:
         context['posts'] = Post.objects.filter(topic=pk1)
     return render(request, 'posts/post_list.html', context)

@@ -9,14 +9,35 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import F
+from user.models import LikedTopic
 
+
+# Points
+# def add_points(request):
+    
 
 # Home
 def home(request):
     context = {}
-    ordering = ['-date_posted']
+
     if request.method == 'GET' and len(request.GET) != 0:
         context['topics'] = Topic.objects.filter(title__icontains=request.GET['keyword'])
+    elif request.POST.get('topicBtn'):
+        user = request.user
+        topic = Topic.objects.get(id=request.POST.get('topicBtn'))
+        if(not user.likedtopic_set.filter(topic=topic).exists()):
+            likedObj = LikedTopic(liker=user,topic=topic)
+            likedObj.save()
+            topic.points = F('points') + 1
+            topic.save(update_fields=["points"])
+        elif(user.likedtopic_set.filter(topic=topic).exists()):
+            user.likedtopic_set.get(topic=topic).delete()
+            topic.points = F('points') - 1
+            topic.save(update_fields=["points"])
+        else:
+            pass
+        context['topics'] = Topic.objects.all()
     else:
         context['topics'] = Topic.objects.all()
     return render(request, 'forum/home.html', context)

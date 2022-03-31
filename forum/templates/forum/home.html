@@ -23,7 +23,14 @@
         {% if topics %}
             {% for post in topics %}
                 <div class="post__body mt-4">
-                    <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted|date:"j M Y"}}</h4>
+                    <small>Points: {{post.points}}</small>
+                    <div class="m-0 d-flex justify-content-between">
+                        <h4 class="post__info">Posted by {{post.author}} on {{post.date_posted|date:"j M Y"}}</h4>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <button class="voteBtn" name="topicBtn" value={{post.id}}><i class="fas fa-sort-up fa-3x"></i></button>
+                        </form>
+                    </div>
                     <h1 class="post__title"><a href="{% url 'post-list' pk1=post.pk %}">{{post.title}}</a></h1>
                     <p class="post__content">{{post.content}}</p>
                     <a class="btn btn-outline-secondary mb-2" href="{% url 'post-create' pk1=post.id %}"><i class="fas fa-plus mr-2"></i>Add a Solution</a></br>

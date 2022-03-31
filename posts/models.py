@@ -4,6 +4,8 @@ from forum.models import Topic
 from django.utils import timezone
 from django.urls import reverse
 
+# class User(User):
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
